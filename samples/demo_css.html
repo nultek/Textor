@@ -1,10 +1,6 @@
 <html>
 <head>
 <title>Textor CSS Sample</title>
-<style type="text/css">
-body    { background: #000000; margin-left: 0; margin-right: 0; margin-top: 0; }
-#editor { background: #000000; padding: 0px; border: 1px solid #404040; width: 1024px; height: 500px }
-</style>
 <script type="text/javascript" src="texteditor.js"></script>
 <script type="text/javascript" src="css.js"></script>
 <div id="data" style="display:none">
@@ -41,12 +37,11 @@ body {
 </div>
 <script type="text/javascript">
 //<![CDATA[
+var editor = null;
 function document_load() {
-    var editor = new Textor.TextEditor(document.getElementById("editor"));
+    editor = new Textor.TextEditor(document.getElementById("editor"));
     editor.language = new Textor.CssLanguage();
     editor.theme = { 
-        "fontFamily": "Menlo,Lucida Console,Courier New", 
-        "fontSize": "13", 
         "backgroundColor": "#202020",
         "backgroundBlurColor": "#000000",
         "selectionColor": "#383838", 
@@ -63,16 +58,16 @@ function document_load() {
         "elementStyle": "#CCCCCC bold",
         "errorStyle": "#AA0000 bold" };
     editor.focus();
+    document_resize();
     editor.text = document.querySelector("#data").textContent;
+}
+function document_resize() {
+    editor.updateSize(window.innerWidth, window.innerHeight);
 }
 //]]>
 </script>
 </head>
-<body onload="document_load()">
-<br/>
-<br/>
-<div style="margin-left: auto; margin-right: auto; width: 1024px;">
-<canvas id="editor" width="2048" height="1000" tabindex="1"></canvas>
-</div>
+<body onload="document_load()" onresize="document_resize()" style="margin: 0;">
+<canvas id="editor" tabindex="1"></canvas>
 </body>
 </html>

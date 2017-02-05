@@ -27,10 +27,6 @@ module Textor
         constructor(canvas: HTMLCanvasElement)
         {
             this._canvas = canvas;
-
-            this._canvas.width = this._canvas.clientWidth * this.devicePixelRatio;
-            this._canvas.height = this._canvas.clientHeight * this.devicePixelRatio;
-
             this._context = canvas.getContext("2d");
 
             this._textBuffer_textChanging = (e: TextChangeEvent) => { this.textBuffer_textChanging(e); }
@@ -50,8 +46,8 @@ module Textor
             this._languageService = new LanguageService(this);
 
             this._theme = {
-                "fontFamily": "Monaco,Lucida Console,Courier New",      
-                "fontSize": "12",
+                "fontFamily": "Menlo,Consolas,Courier New",
+                "fontSize": "13",
                 "paddingLeft": "4",
                 "paddingTop": "4",
                 "backgroundColor": "#ffffff",
@@ -70,9 +66,7 @@ module Textor
                 "errorStyle": "#FF0000 bold",
                 "declarationStyle": "#000000 bold" };
 
-            this.updateFont();
-            this.invalidate();
-            this.update();
+            this.updateSize(this._canvas.clientWidth, this._canvas.clientHeight);
             this.focus();
         }
 
@@ -571,6 +565,18 @@ module Textor
             {
                 this.scroll(vertical, horizontal);
             }
+        }
+
+        public updateSize(width: number, height: number)
+        {
+            this._canvas.style.width = width.toString();
+            this._canvas.style.height = height.toString();
+            this._canvas.width = width * this.devicePixelRatio;
+            this._canvas.height = height * this.devicePixelRatio;
+
+            this.updateFont();
+            this.invalidate();
+            this.update();
         }
 
         private updateFont()
