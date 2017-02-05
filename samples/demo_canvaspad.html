@@ -14,14 +14,14 @@ context.strokeStyle = "#fff";
 
 // draw grid of rounded rectangles
 context.lineWidth = 2;
-context.fillStyle = "#fff";
+context.fillStyle = "#ddd";
 
 for (var i = 0; i < 4; i++)
 {
-    for (var j = 0; j < 4; j++)
+    for (var j = 0; j < 7; j++)
     {
-        roundedRect(85 + 60 * i, 85 + 60 * j, 50, 50, 10);
-        if (i % 4 == j)
+        roundedRect(85 + 60 * i, 85 + 60 * j, 50, 50, 24 - (j * 2));
+        if (i == j % 4)
         {
             context.fill();
         }
