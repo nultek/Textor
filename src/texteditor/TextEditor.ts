@@ -796,17 +796,7 @@ module Textor
                         var themeProperties: string[] = theme.split(' ');
                         this._context.fillStyle = themeProperties[0];
                         this._context.font = ((themeProperties.length === 2) && (themeProperties[1] === "italic")) ? ("italic " + font) : font;
-                        if ((themeProperties.length === 2) && (themeProperties[1] === "bold"))
-                        {
-                            // fake bold by adding a shadow
-                            this._context.shadowBlur = (this._textController.isMozilla) ? 0.5 : 1;
-                            this._context.shadowColor = themeProperties[0];
-                        }
-                        else
-                        {
-                            this._context.shadowBlur = 0;
-                            this._context.shadowColor = "rgba(0,0,0,0)";
-                        }
+                        this._context.font = ((themeProperties.length === 2) && (themeProperties[1] === "bold")) ? ("bold " + font) : font;
 
                         var y = Math.floor(fontSize.height * 0.8) + paddingTop;
                         for (var line = this._scrollPosition.line; line < (this._scrollPosition.line + size.line); line++)
