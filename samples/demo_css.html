@@ -41,22 +41,7 @@ var editor = null;
 function document_load() {
     editor = new Textor.TextEditor(document.getElementById("editor"));
     editor.language = new Textor.CssLanguage();
-    editor.theme = { 
-        "backgroundColor": "#202020",
-        "backgroundBlurColor": "#000000",
-        "selectionColor": "#383838", 
-        "selectionBlurColor": "#282828", 
-        "cursorColor": "#FFFFFF", 
-        "cursorBackgroundColor": "#333333",
-        "textStyle": "#FFFFFF", 
-        "commentStyle": "#AAAAAA italic",
-        "literalStyle": "#998888",
-        "keywordStyle": "#808880 bold",
-        "punctuationStyle": "#888888",
-        "declarationStyle": "#FFFFFF italic",
-        "attributeStyle": "#AAAAAA bold",
-        "elementStyle": "#CCCCCC bold",
-        "errorStyle": "#AA0000 bold" };
+    editor.theme = editor.themeManager.get("gray");
     editor.focus();
     document_resize();
     editor.text = document.querySelector("#data").textContent;

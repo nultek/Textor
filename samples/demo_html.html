@@ -10,7 +10,10 @@
 var editor = null;
 function document_load() {
     editor = new Textor.TextEditor(document.getElementById("editor"));
-    editor.language = new Textor.HtmlLanguage({ "text/css": new Textor.CssLanguage(), "text/javascript": new Textor.JavaScriptLanguage() });
+    editor.language = new Textor.HtmlLanguage({ 
+        "text/css": new Textor.CssLanguage(), 
+        "text/javascript": new Textor.JavaScriptLanguage()
+    });
     editor.focus();
     document_resize();
     var request = new XMLHttpRequest()

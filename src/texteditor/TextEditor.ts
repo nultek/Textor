@@ -5,6 +5,7 @@ module Textor
         private _canvas: HTMLCanvasElement;
         private _context: CanvasRenderingContext2D;
         private _theme: ITheme;
+        private _themeManager: IThemeManager;
         private _undoService: UndoService = new UndoService();
         private _textChangingHandlers: TextChangeHandler[] = [];
         private _textChangedHandlers: TextChangeHandler[] = [];
@@ -45,26 +46,8 @@ module Textor
 
             this._languageService = new LanguageService(this);
 
-            this._theme = {
-                "fontFamily": "Menlo,Consolas,Courier New",
-                "fontSize": "13",
-                "paddingLeft": "4",
-                "paddingTop": "4",
-                "backgroundColor": "#ffffff",
-                "backgroundBlurColor": "#ffffff",
-                "selectionColor": "#c0ddf6",
-                "selectionBlurColor": "#e3f1fe",
-                "cursorColor": "#000000",
-                "cursorBackgroundColor": "#ededed",
-                "textStyle": "#000000",
-                "punctuationStyle": "#666666",
-                "commentStyle": "#0068c5 italic",
-                "keywordStyle": "#662266 bold",
-                "literalStyle": "#005a15",
-                "elementStyle": "#0000AA bold",
-                "attributeStyle": "#0000AA italic",
-                "errorStyle": "#FF0000 bold",
-                "declarationStyle": "#000000 bold" };
+            this._themeManager = new ThemeManager();
+            this._theme = this._themeManager.get("default");
 
             this.updateSize(this._canvas.clientWidth, this._canvas.clientHeight);
             this.focus();
@@ -119,6 +102,11 @@ module Textor
         public get theme(): ITheme
         {
             return this._theme;
+        }
+
+        public get themeManager(): IThemeManager
+        {
+            return this._themeManager;
         }
 
         public get language(): ILanguage
@@ -717,10 +705,6 @@ module Textor
                 if ((clipRectangle.width !== 0) && (clipRectangle.height !== 0))
                 {
                     this._context.save();
-
-                    // erase all content 
-                    // this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-                    // console.log("(" + clipRectangle.x + "," + clipRectangle.y + ")-(" + clipRectangle.width + "," + clipRectangle.height + ")");
 
                     // apply clip rectangle
                     this._context.beginPath();
